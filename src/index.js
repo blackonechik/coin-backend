@@ -16,7 +16,8 @@ const {
 
 const app = express()
 const expressWs = require('express-ws')(app)
-const port = 3000
+const ip = "localhost"
+const port = 2083
 
 const AUTH_DATA = Object.freeze({
 	login: 'developer',
@@ -269,9 +270,10 @@ app.post('*', (req, res) => {
 	res.end(response(null, 'Invalid route'))
 })
 
-app.listen(port, () => {
-  console.log(`Example app listening at http://localhost:${port}`)
+app.listen(port, ip, () => {
+  console.log(`Example app listening at http://${ip}:${port}`)
 })
+
 
 
 function setExchangeRate(currency1, currency2, rate) {
@@ -333,5 +335,5 @@ const currencyRateFeedGenerator = setInterval(() => {
 		})
 		writeData(data)
 	}
-}, 1000)
+}, 100000)
 currencyRateFeedGenerator.unref()
